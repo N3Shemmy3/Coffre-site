@@ -128,7 +128,7 @@ const tags = ["#Android", "#Native", "#Material-You", "#Java", "#XML", "#MD3"];
             <button
               class="px-4 py-2 md:px-8 md:py-3 cursor-pointer drop-shadow-2xl shadow-2xl rounded-full bg-colorSecondaryContainer text-colorOnSecondaryContainer duration-300 transition-all hover:bg-colorSurfaceContainerLow"
             >
-              Constribute
+              Contribute
             </button>
           </NuxtLink>
         </div>
