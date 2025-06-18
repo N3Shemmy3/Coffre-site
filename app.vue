@@ -19,27 +19,6 @@ const menuItems = [
   },
 ];
 const tags = ["#Android", "#Native", "#Material-You", "#Java", "#XML", "#MD3"];
-
-async function getLatestReleaseAsset(owner = "N3Shemmy3", repo = "Coffre") {
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
-  const response = await fetch(apiUrl);
-  if (!response.ok) throw new Error("Failed to fetch latest release");
-  const release = await response.json();
-  // Return the first asset, or null if none
-  return release.assets && release.assets.length > 0 ? release.assets[0] : null;
-}
-onMounted(async () => {
-  try {
-    const asset = await getLatestReleaseAsset();
-    if (asset) {
-      downloadLink.value = asset.browser_download_url;
-    } else {
-      console.error("No assets found in the latest release.");
-    }
-  } catch (error) {
-    console.error("Error fetching latest release asset:", error);
-  }
-});
 </script>
 
 <template>
