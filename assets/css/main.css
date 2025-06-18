@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Primary Colors */
+  --color-colorPrimary: var(--primary);
+  --color-colorOnPrimary: var(--on-primary);
+  --color-colorPrimaryContainer: var(--primary-container);
+  --color-colorOnPrimaryContainer: var(--on-primary-container);
+
+  /* Secondary Colors */
+  --color-colorSecondary: var(--secondary);
+  --color-colorOnSecondary: var(--on-secondary);
+  --color-colorSecondaryContainer: var(--secondary-container);
+  --color-colorOnSecondaryContainer: var(--on-secondary-container);
+
+  /* Tertiary Colors */
+  --color-colorTertiary: var(--tertiary);
+  --color-colorOnTertiary: var(--on-tertiary);
+  --color-colorTertiaryContainer: var(--tertiary-container);
+  --color-colorOnTertiaryContainer: var(--on-tertiary-container);
+
+  /* Error Colors */
+  --color-colorError: var(--error);
+  --color-colorOnError: var(--on-error);
+  --color-colorErrorContainer: var(--error-container);
+  --color-colorOnErrorContainer: var(--on-error-container);
+
+  /* Background & Surface Colors */
+  --color-colorBackground: var(--background);
+  --color-colorOnBackground: var(--on-background);
+  --color-colorSurface: var(--surface);
+  --color-colorOnSurface: var(--on-surface);
+  --color-colorSurfaceVariant: var(--surface-variant);
+  --color-colorOnSurfaceVariant: var(--on-surface-variant);
+  /* Outline & Scrim Colors */
+  --color-colorOutline: var(--outline);
+  --color-colorOutlineVariant: var(--outline-variant);
+  --color-colorScrim: var(--scrim);
+
+  /* Inverse Colors (used for contrast on inverse surfaces) */
+  --color-colorInverseSurface: var(--inverse-surface);
+  --color-colorInverseOnSurface: var(--inverse-on-surface);
+  --color-colorInversePrimary: var(--inverse-primary);
+
+  /* Fixed Colors (often used for components whose colors don't change
+with the theme) */
+  --color-colorPrimaryFixed: var(--primary-fixed);
+  --color-colorOnPrimaryFixed: var(--on-primary-fixed);
+  --color-colorPrimaryFixedDim: var(--primary-fixed-dim);
+  --color-colorOnPrimaryFixedVariant: var(--on-primary-fixed-variant);
+  --color-colorSecondaryFixed: var(--secondary-fixed);
+  --color-colorOnSecondaryFixed: var(--on-secondary-fixed);
+  --color-colorSecondaryFixedDim: var(--secondary-fixed-dim);
+  --color-colorOnSecondaryFixedVariant: var(--on-secondary-fixed-variant);
+  --color-colorTertiaryFixed: var(--tertiary-fixed);
+  --color-colorOnTertiaryFixed: var(--on-tertiary-fixed);
+  --color-colorTertiaryFixedDim: var(--tertiary-fixed-dim);
+  --color-colorOnTertiaryFixedVariant: var(--on-tertiary-fixed-variant);
+
+  /* Surface Colors (used for containers and backgrounds) */
+  --color-colorSurfaceDim: var(--surface-dim);
+  --color-colorSurfaceBright: var(--surface-bright);
+  --color-colorSurfaceContainerLowest: var(--surface-container-lowest);
+  --color-colorSurfaceContainerLow: var(--surface-container-low);
+  --color-colorSurfaceContainer: var(--surface-container);
+  --color-colorSurfaceContainerHigh: var(--surface-container-high);
+  --color-colorSurfaceContainerHighest: var(--surface-container-highest);
+}
+:root,
+.light {
+  --primary: #6b5f10;
+  --on-primary: #ffffff;
+  --primary-container: #f5e389;
+  --on-primary-container: #514700;
+  --secondary: #655f41;
+  --on-secondary: #ffffff;
+  --secondary-container: #ece3bc;
+  --on-secondary-container: #4d472b;
+  --tertiary: #426650;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #c3ecd0;
+  --on-tertiary-container: #2a4e3a;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #fff9eb;
+  --on-background: #1d1c13;
+  --surface: #fff9eb;
+  --on-surface: #1d1c13;
+  --surface-variant: #e9e2d0;
+  --on-surface-variant: #4a4739;
+  --outline: #7b7768;
+  --outline-variant: #ccc6b5;
+  --scrim: #000000;
+  --inverse-surface: #333027;
+  --inverse-on-surface: #f6f0e2;
+  --inverse-primary: #d8c770;
+  --primary-fixed: #f5e389;
+  --on-primary-fixed: #211c00;
+  --primary-fixed-dim: #d8c770;
+  --on-primary-fixed-variant: #514700;
+  --secondary-fixed: #ece3bc;
+  --on-secondary-fixed: #201c05;
+  --secondary-fixed-dim: #d0c7a2;
+  --on-secondary-fixed-variant: #4d472b;
+  --tertiary-fixed: #c3ecd0;
+  --on-tertiary-fixed: #002111;
+  --tertiary-fixed-dim: #a8d0b5;
+  --on-tertiary-fixed-variant: #2a4e3a;
+  --surface-dim: #dfdacc;
+  --surface-bright: #fff9eb;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f9f3e5;
+  --surface-container: #f3ede0;
+  --surface-container-high: #eee8da;
+  --surface-container-highest: #e8e2d4;
+}
+
+.dark {
+  --primary: #d8c770;
+  --on-primary: #383000;
+  --primary-container: #514700;
+  --on-primary-container: #f5e389;
+  --secondary: #d0c7a2;
+  --on-secondary: #353116;
+  --secondary-container: #4d472b;
+  --on-secondary-container: #ece3bc;
+  --tertiary: #a8d0b5;
+  --on-tertiary: #123724;
+  --tertiary-container: #2a4e3a;
+  --on-tertiary-container: #c3ecd0;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #15130c;
+  --on-background: #e8e2d4;
+  --surface: #15130c;
+  --on-surface: #e8e2d4;
+  --surface-variant: #4a4739;
+  --on-surface-variant: #ccc6b5;
+  --outline: #969180;
+  --outline-variant: #4a4739;
+  --scrim: #000000;
+  --inverse-surface: #e8e2d4;
+  --inverse-on-surface: #333027;
+  --inverse-primary: #6b5f10;
+  --primary-fixed: #f5e389;
+  --on-primary-fixed: #211c00;
+  --primary-fixed-dim: #d8c770;
+  --on-primary-fixed-variant: #514700;
+  --secondary-fixed: #ece3bc;
+  --on-secondary-fixed: #201c05;
+  --secondary-fixed-dim: #d0c7a2;
+  --on-secondary-fixed-variant: #4d472b;
+  --tertiary-fixed: #c3ecd0;
+  --on-tertiary-fixed: #002111;
+  --tertiary-fixed-dim: #a8d0b5;
+  --on-tertiary-fixed-variant: #2a4e3a;
+  --surface-dim: #15130c;
+  --surface-bright: #3c3930;
+  --surface-container-lowest: #100e07;
+  --surface-container-low: #1d1c13;
+  --surface-container: #222017;
+  --surface-container-high: #2c2a21;
+  --surface-container-highest: #37352b;
+}
+
+@layer base {
+  * {
+    @apply border-colorOutline outline-colorOutline/50;
+  }
+  body {
+    font-family: "Poppins", "Poppins Placeholder", sans-serif;
+    @apply bg-colorSurface text-colorOnSurface;
+  }
+}
