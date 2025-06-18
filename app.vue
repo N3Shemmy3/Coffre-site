@@ -1,65 +1,83 @@
 <script setup>
 const colorMode = useColorMode();
 const isDarkMode = computed(() => colorMode.value == "dark");
-
+const downloadLink = ref("");
 const toggleTheme = () => {
   colorMode.preference = isDarkMode.value ? "light" : "dark";
 };
 
 const menuItems = [
-  { icon: "lucide:github", name: "Github", path: "/" },
-  { icon: "lucide:message-circle", name: "Telegram", path: "/about" },
+  {
+    icon: "lucide:github",
+    name: "Github",
+    url: "https://github.com/N3Shemmy3/Coffre",
+  },
+  {
+    icon: "lucide:message-circle",
+    name: "Telegram",
+    url: "https://t.me/PixellateProjects",
+  },
 ];
-const tags = [
-  "#Android",
-  "#Native",
-  "#Material-You",
-  "#MD3",
-  "#Java",
-  "#XML",
-  "#Gradle",
-];
+const tags = ["#Android", "#Native", "#Material-You", "#Java", "#XML", "#MD3"];
 
-const windowWidth = ref(0);
-
-function updateWidth() {
-  windowWidth.value = window.innerWidth;
+async function getLatestReleaseAsset(owner = "N3Shemmy3", repo = "Coffre") {
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
+  const response = await fetch(apiUrl);
+  if (!response.ok) throw new Error("Failed to fetch latest release");
+  const release = await response.json();
+  // Return the first asset, or null if none
+  return release.assets && release.assets.length > 0 ? release.assets[0] : null;
 }
-
-onMounted(() => {
-  windowWidth.value = window.innerWidth;
-  window.addEventListener("resize", updateWidth);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", updateWidth);
+onMounted(async () => {
+  try {
+    const asset = await getLatestReleaseAsset();
+    if (asset) {
+      downloadLink.value = asset.browser_download_url;
+    } else {
+      console.error("No assets found in the latest release.");
+    }
+  } catch (error) {
+    console.error("Error fetching latest release asset:", error);
+  }
 });
 </script>
 
 <template>
-  <div class="relative w-full min-h-dvh">
+  <div class="min-h-dvh scroll-smooth relative">
     <!--header-->
     <header
-      class="fixed left-0 top-0 right-0 flex items-center backdrop-blur-xl bg-colorSurface/10 z-50"
+      class="w-full fixed left-0 top-0 right-0 flex items-center backdrop-blur-xl bg-colorSurface/10 z-50"
     >
       <div
-        class="w-full xl:max-w-7xl px-4 py-2 md:px-8 mx-auto flex items-center justify-between"
+        class="w-full max-w-full xl:max-w-7xl px-4 py-2 md:px-8 xl:mx-auto flex items-center justify-between"
       >
         <NuxtLink
           to="/"
-          class="text-xl md:text-2xl font-bold text-colorOnPrimaryContainer"
-          >Coffre</NuxtLink
+          class="flex items-center gap-2 text-xl md:text-2xl font-bold text-colorOnPrimaryContainer"
         >
-        {{ windowWidth }}
+          <img
+            class="size-8 rounded-full"
+            src="data:image/png;base64,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QgAAKwRAgwCIEADACgHQIAAiBACwQgA0CIAIAQCsEAANAiBCAAArBECDAIgQAMAKAdAgACIEALBCADQIgAgBAKwQAA0CIEIAACsEQIMAiBAAwAoB0CAAIgQAsEIANAiACAEArBAADQIgQgAAKwRAgwCIEADACgHQIAAiBACwQgA0CIAIAQCsEAANAiBCAAArBECDAIgQAMAKAdAgACIEALBCADQIgAgBAKwQAA0CIEIAACsEQIMAiBAAwAoB0CAAIgQAsEIANAiACAEArBAADQIgQgAAKwRAgwCIEADACgHQIAAiBACwQgA0CIAIAQCsEAANAiBCAAArBECDAIgQAMAKAdAgACIEALBCADQIgAgBAKwQAA0CIEIAACsEQIMAiBAAwAoB0CAAIgQAsEIANAiACAEArBAADQIg4jvf/vjxwfvvwivvvPPyaWm+yV6+fPl4/70vPs3Jpm998xuPz3/+06c9yOslACJ+8tmnj08/+T688pUvf/R0ib7JPvrwvcePfvi9pznZ9NmPP3n88hc/e9qDvF4CAILeti8hT77QIwAgSAAA1wQABAkA4JoAgCABAFwTABAkAIBrAgCCBABwTQBAkAAArgkACBIAwDUBAEECALgmACBIAADXBAAECQDgmgCAIAEAXBMAECQAgGsCAIIEAHBNAECQAACuCQAIEgDANQEAQQIAuCYAIEgAANcEAAQJAOCaAIAgAQBcEwAQJACAawIAggQAcE0AQJAAAK4JAAgSAMA1AQBBAgC4JgAgSAAA1wQABAkA4JoAgCABAFwTABAkAIBrAgCCBABwTQBAkAAArgkACBIAwDUBAEECALgmACBIAADXBAAECQDgmgCAIAEAXBMAECQAgGsCAIIEAHBNAECQAACuCQAIEgDANQEAQQIAuCYAIEgAANcEAAQJAOCaAIAgAQBcEwAQJACAawIAggQAcE0AQJAAAK4JAAgSAMA1AQBBAgC4JgAgSAAA1wQABAkA4JoAgCABAFwTABAkAIBrAgCCBABwTQBAkAAArgkACBIAwDUBAEECALgmACBIAADXBAAECQDgmgCAIAEAXBMAECQAgGsCAIIEAHBNAECQAACuCQAIEgDANQEAQQIAuCYAIEgAANcEAAQJAOCaAIAgAQBcEwAQJACAawIAggQAcE0AQJAAAK4JAAgSAMA1AQBBAgC4JgAgSAAA1wQABAkA4JoAgCABAFwTABAkAIBrAgCCBABwTQBAkAAArgkACBIAwDUBAEECALgmACBIAADXBAAECQDgmgCAIAEAXBMAECQAgGsCAIIEAHBNAECQAACuCQAIEgDANQEAQQIAuCYAIEgAANcEAAQJAOCaAIAgAQBcEwAQJACAawIAggQAcE0AQJAAAK4JAAgSAMA1AQBBAgC4JgAgSAAA1wQABAkA4JoAgCABAFwTABAkAIBrAgCCBABwTQBAkAAArgkACBIAwDUBAEECALgmAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGCQAAGCQAACAQQIAAAYJAAAYJAAAYJAAAIBBAgAABgkAABgkAABgkAAAgEECAAAGCQAAGPS/5N3uFD71AKIAAAAASUVORK5CYII="
+            alt=""
+          />
+          <span>Coffre </span>
+        </NuxtLink>
         <nav
-          class="flex items-center gap-2 md:gap-4 text-colorOnPrimaryContainer"
+          class="w-fit flex items-center gap-2 md:gap-4 text-colorOnPrimaryContainer"
         >
-          <button
+          <NuxtLink
+            taget="_blank"
             v-for="item in menuItems"
-            class="size-12 flex items-center justify-center outline-0 rounded-full transition-all duration-300 hover:bg-colorSecondaryContainer cursor-pointer"
+            :key="item.name"
+            :to="item.url"
           >
-            <Icon :name="item.icon" size="24" class />
-          </button>
+            <button
+              class="size-12 flex items-center justify-center outline-0 rounded-full transition-all duration-300 hover:bg-colorSecondaryContainer cursor-pointer"
+            >
+              <Icon :name="item.icon" size="24" class />
+            </button>
+          </NuxtLink>
+
           <button
             @click.stop.prevent="toggleTheme"
             aria-label="Switch Theme"
@@ -117,14 +135,17 @@ onUnmounted(() => {
         </p>
 
         <div class="mt-8 flex items-center gap-2 md:gap-4">
-          <NuxtLink to="/download">
+          <NuxtLink
+            to="https://github.com/N3Shemmy3/Coffre/releases"
+            taget="_blank"
+          >
             <button
               class="px-4 py-2 md:px-8 md:py-3 cursor-pointer drop-shadow-2xl shadow-2xl rounded-full hover:bg-colorOnPrimaryContainer hover:text-colorOnPrimary duration-300 transition-all bg-colorPrimary text-colorOnPrimary"
             >
               Download
             </button>
           </NuxtLink>
-          <NuxtLink to="/download">
+          <NuxtLink to="https://github.com/N3Shemmy3/Coffre" taget="_blank">
             <button
               class="px-4 py-2 md:px-8 md:py-3 cursor-pointer drop-shadow-2xl shadow-2xl rounded-full bg-colorSecondaryContainer text-colorOnSecondaryContainer duration-300 transition-all hover:bg-colorSurfaceContainerLow"
             >
@@ -136,7 +157,7 @@ onUnmounted(() => {
         <div>
           <div class="flex items-center gap-2 mt-8">
             <span
-              v-for="(tag, index) in tags.slice(0, windowWidth <= 360 ? 3 : 4)"
+              v-for="(tag, index) in tags.slice(0, 3)"
               class="text-nowrap text-xs md:text-sm px-3 py-1 transition-all duration-300 rounded-full hover:bg-colorSecondaryContainer border border-colorOutline text-colorOutline"
             >
               {{ tag }}</span
@@ -144,7 +165,7 @@ onUnmounted(() => {
           </div>
           <div class="flex px-6 items-center gap-2 mt-2">
             <span
-              v-for="(tag, index) in tags.slice(4, tags.length)"
+              v-for="(tag, index) in tags.slice(3, tags.length)"
               class="text-nowrap text-sm px-3 py-1 transition-all duration-300 rounded-full hover:bg-colorSecondaryContainer border border-colorOutline text-colorOutline"
             >
               {{ tag }}</span
